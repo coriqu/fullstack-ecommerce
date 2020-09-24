@@ -1,0 +1,181 @@
+// /client/src/App.js
+
+import React, { useState, useEffect } from "react";
+
+import ListItem from './components/listItem';
+
+// SERVICES
+import productService from './services/productService';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  // useParams,
+  useHistory
+} from "react-router-dom";
+
+// import { createBrowserHistory } from "history";
+
+class App extends React.Componen() {
+  const [products, setproducts] = useState(null);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [showProductDetails, setshowProductDetails] = useState("");
+  // const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    if(!products) {
+      getProducts();
+    }
+  })
+
+  const getProducts = async () => {
+    let res = await productService.getAll();
+    // console.log(res);
+    setproducts(res);
+  }
+
+  const createProduct = async () => {
+    let product = {
+      name: name,
+      description: description
+    }
+    let res = await productService.create(product);
+    console.log('create',product,res);
+    setName('');
+    setDescription('');
+    getProducts();
+
+  }
+
+  const deleteProduct = async (e,id) => {
+    let res = await productService.deleteById(id);
+    console.log('delete',id,res);
+    getProducts();
+  }
+
+  // const editProduct = async (e,id) => {
+  //   // setIsEditing(true);
+  //   // let res = await productService.deleteById(id);
+  //   console.log('editProduct',id);
+  //   // getProducts();
+  // }
+  const getProductById = async (id) => {
+    console.log(id);
+      try {
+       let res = await productService.getById(id);
+       setshowProductDetails(res);
+      } catch(e) {
+       console.log(e);
+      }
+      // let res = await productService.getById(id);
+      //  setshowProductDetails(res);
+      
+  
+      
+  }
+
+  const renderProduct = product => {
+    return (
+      
+      <ListItem
+        key={product._id}
+        onDelete = {deleteProduct}
+        getProducts = {getProducts}
+        product = {product}
+        getProductById = {getProductById}
+      />
+
+
+    );
+  };
+
+
+  const handleChange = (e) => {
+    const {value} = e.target;
+    console.log(e.target.name, value);
+    if(e.target.name === 'name') {
+      setName(value);
+    }
+    if(e.target.name === 'description') {
+      setDescription(value);
+    }
+  }
+
+
+function ProductDetails() {
+  // We can use the `useParams` hook here to access
+  // the dynamic pieces of the URL.
+  // let { id } = useParams();
+  let product = showProductDetails;
+  let history = useHistory()
+  
+   
+  return (
+
+    <div>
+     <button type="button" onClick={() => history.goBack()}>
+      back
+    </button>
+
+      <h3>ID: {product._id}</h3>
+      <h3 className="product__name">{product.name}</h3>
+      <p className="product__description">{product.description}</p>
+    </div>
+  );
+}
+
+  return (
+    <div className="App">
+      <Router>
+
+        <Switch>
+          
+          <Route path="/:id">
+            <ProductDetails />
+          </Route>
+          <Route path="/">
+              
+            <ul className="list">
+              <li className="list__item product">
+                <Link to="123" onClick={e => getProductById('123')}>See Details</Link>
+              </li>
+
+              {(products && products.length > 0) ? (
+                products.map(product => renderProduct(product))
+              ) : (
+                <p>No products found</p>
+              )}
+            </ul>
+          </Route>
+        </Switch>
+
+      </Router>
+
+
+      <input
+          name = "name"
+          type="text"
+          value={name}
+          onChange={e=>handleChange(e)}
+        />
+         <input
+          name = "description"
+          type="text"
+          value={description}
+          onChange={e=>handleChange(e)}
+        />
+        <button type="button" onClick={createProduct}>
+          Add
+        </button>
+    </div>
+  );
+}
+
+
+
+
+
+export default App;
