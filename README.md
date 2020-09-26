@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # React -Redux-Node-MongoDB ECommerce (In process)
 
 ## Run Locally
@@ -35,8 +34,3 @@ $ cd client
 $ npm install
 $ npm run dev
 ```
-=======
-# fullstack-ecommerce
-
-#react redux mongoDB
->>>>>>> f22a6025f98d11bd24ebbd7ca3d59d3f5f3722a3
