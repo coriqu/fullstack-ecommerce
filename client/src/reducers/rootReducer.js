@@ -4,8 +4,8 @@ import {
     productCreateReducer,
     productGetAllReducer,
     productGetByIdReducer,
-    productUpdateReducer,
-    sortProductReducer
+    productUpdateReducer
+    // sortProductReducer
 } from './productReducers';
 import {
 	cartReducer
@@ -18,7 +18,7 @@ export default combineReducers({
     productGetAllReducer,
     productGetByIdReducer,
     productUpdateReducer,
-    sortProductReducer,
+    // sortProductReducer,
     
 
     cartReducer

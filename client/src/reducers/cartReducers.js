@@ -1,11 +1,18 @@
+let initialCartItems = JSON.parse(localStorage.getItem("cartItems") || "[]")
 
-function cartReducer(state = {cartItems: []}, action) {
+function cartReducer(state = {cartItems: initialCartItems}, action) {
+  let newCartItems;
   switch(action.type) {
     case "CART_ADD_ITEM":
-      return { cartItems: [...state.cartItems,action.payload] };
+      newCartItems = [...state.cartItems,action.payload];
+      localStorage.setItem("cartItems",JSON.stringify(newCartItems));
+      return { cartItems: newCartItems };
     case "CART_REMOVE_ITEM":
-      return { cartItems: state.cartItems.filter(x => x !== action.payload) };
+      newCartItems = state.cartItems.filter(x => x !== action.payload);
+      localStorage.setItem("cartItems",JSON.stringify(newCartItems));
+      return { cartItems: newCartItems };
     case "CART_REMOVEALL_ITEM":
+      localStorage.clear("cartItems")
       return { cartItems: [] };
     default:
       return state;

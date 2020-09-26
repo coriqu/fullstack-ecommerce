@@ -83,12 +83,15 @@ export const updateProduct = (productId,Product) => async (dispatch, getState) =
 
 const compare = (a,b,type) => {
 	console.log(a[type], b[type]);
-	if(a[type]>b[type]) 
+	if(a[type]>b[type]) {
 		console.log(1);
 		return -1;
-	if(a[type]<b[type]) 
+	}
+		
+	if(a[type]<b[type]) {
 		console.log(-1);
 		return 1;
+	}
 	return 0;
 }
 export const sortProduct = (currentProducts, sortType) => (dispatch) => {
@@ -110,18 +113,14 @@ export const sortProduct = (currentProducts, sortType) => (dispatch) => {
 
 
 export const filterProducts = (products, value) => async (dispatch) => {
-	console.log(products,value);
-	if(!value) {
-		await getAllProducts;
-		return;
-	}
-	let newProducts = Object.assign({}, products);
+	
     let filteredValues = products.filter(product => {
         return (
-          product.name.toLowerCase().includes(value) ||
-          product.description.toLowerCase().includes(value)
+         	product.name.toLowerCase().includes(value) ||
+          	product.description.toLowerCase().includes(value)
         );
-      });
+    });
+    console.log('filteredValues', filteredValues);
 	dispatch({
 		type: 'FILTER_PRODUCTS_BY_VALUE',
 		payload: filteredValues,

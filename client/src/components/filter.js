@@ -5,6 +5,10 @@ import {
 	sortProduct,
 	filterProducts
 } from '../actions/productActions';
+import {
+	getProducts,
+	getSortedProducts
+} from '../selectors/selectors';
 
 class Filter extends React.Component {
 	
@@ -14,6 +18,7 @@ class Filter extends React.Component {
 		return (
 			<div>
 				<input onChange={e =>{console.log(products,e.target.value);filterProducts(products,e.target.value)}} placeholder='Search' type='text'/>
+				
 				<button onClick = {e=>this.props.sortProduct(filteredProducts,'SORT_BY_NAME')}>
                 	Sort By Name
               	</button>
@@ -24,13 +29,18 @@ class Filter extends React.Component {
 
 function mapStateToProps(state) {
   //store里需要用的的state
-  const {productGetAllReducer,sortProductReducer} = state;
+  // const {productGetAllReducer,sortProductReducer} = state;
 
-  return {
-    products: productGetAllReducer.products,
-    filteredProducts: productGetAllReducer.sortedProducts,
+  // return {
+  //   products: productGetAllReducer.products,
+  //   filteredProducts: productGetAllReducer.sortedProducts,
 
-  };
+  // };
+ 	return {
+
+		products: getProducts(state),
+		filteredProducts: getSortedProducts(state)
+	};
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators( {sortProduct,filterProducts} , dispatch);

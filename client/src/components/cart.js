@@ -5,6 +5,8 @@ import {
 	removeFromCart,
 	emptyCart
 } from '../actions/cartActions';
+
+
 class Cart extends React.Component {
 	render() {
 		const {items} = this.props;

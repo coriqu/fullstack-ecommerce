@@ -1,6 +1,6 @@
 
 
-function productGetAllReducer(state = { products: [] }, action) {
+function productGetAllReducer(state = { products: [] ,sortedProducts:[]}, action) {
   console.log('productGetAllReducer');
   switch (action.type) {
     case 'PRODUCT_GETALL_REQUEST':
@@ -10,9 +10,11 @@ function productGetAllReducer(state = { products: [] }, action) {
     case 'PRODUCT_GETALL_FAIL':
       return { loading: false, error: action.payload };
     case 'SORT_BY_NAME':
-      return { sortedProducts:action.payload};
+    //   return Object.assign({}, state, {sortedProducts: action.payload })
+      return {...state, sortedProducts: action.payload };
     case 'FILTER_PRODUCTS_BY_VALUE':
-      return { sortedProducts:action.payload};
+    //   return Object.assign({}, state, {sortedProducts: action.payload })
+      return {...state, sortedProducts: action.payload };
     default:
       return state;
   }
@@ -39,6 +41,7 @@ function productGetByIdReducer(state = { product: {} }, action) {
 
 
 function productCreateReducer(state = { product: {} }, action) {
+  console.log('productCreateReducer');
   switch (action.type) {
     case 'PRODUCT_CREATE_REQUEST':
       return { loading: true };
@@ -52,6 +55,7 @@ function productCreateReducer(state = { product: {} }, action) {
 }
 
 function productUpdateReducer(state = { product: {} }, action) {
+  console.log('productUpdateReducer');
   switch (action.type) {
     case 'PRODUCT_UPDATE_REQUEST':
       return { loading: true };
@@ -82,26 +86,26 @@ function productDeleteReducer(state = { product: {} }, action) {
 
 // }
 
-function sortProductReducer(state = { sortedProducts: [] }, action) {
-  console.log('sortProductReducer',state.sortedProducts,action);
-  switch (action.type) {
-    case 'SORT_BY_PRICE':
-      return {sortedProducts: action.payload};
-    case 'SORT_BY_NAME':
-      return {sortedProducts: action.payload};
-    default: 
-      return state;
-  }
-}
+// function sortProductReducer(state = { sortedProducts: [] }, action) {
+//   console.log('sortProductReducer',state.sortedProducts,action);
+//   switch (action.type) {
+//     case 'SORT_BY_PRICE':
+//       return {sortedProducts: action.payload};
+//     case 'SORT_BY_NAME':
+//       return {sortedProducts: action.payload};
+//     default: 
+//       return state;
+//   }
+// }
 
 export {
     productDeleteReducer,
     productCreateReducer,
     productGetAllReducer,
     productGetByIdReducer,
-    productUpdateReducer,
+    productUpdateReducer
 
-    sortProductReducer
+    // ,sortProductReducer
 }
 
 
