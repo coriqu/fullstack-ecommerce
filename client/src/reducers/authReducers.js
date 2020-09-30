@@ -1,16 +1,17 @@
 
 
 
-function userLoginReducer(state = {} , action) {
+function userLoginReducer(state = {isLogined:false, user: null} , action) {
+	console.log(action);
 	switch(action.type) {
 		case 'USER_LOGIN_REQUEST':
-			return { loading: true, isLogined: false };
+			return { ...state, loading: true, isLogined: false };
 		case 'USER_LOGIN_SUCCESS':
-			return { loading: false, user: action.payload, success: true, isLogined:true };
+			return { ...state, loading: false, user: action.payload, success: true, isLogined:true };
 		case 'USER_LOGIN_FAIL':
 			return { loading: false, error: action.payload, isLogined: false};
 		case 'USER_LOGOUT':
-			return state;
+			return { ...state, isLogined: false, user: null };
 		default:
 			return state;
 		
@@ -47,6 +48,7 @@ function userRegisterReducer(state = {} , action) {
 		
 	}
 }
+
 
 export {
 	userLoginReducer,

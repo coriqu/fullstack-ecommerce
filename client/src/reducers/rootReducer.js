@@ -11,6 +11,12 @@ import {
 	cartReducer
 } from './cartReducers';
 
+import {
+    userLoginReducer,
+    userUpdateReducer,
+    userRegisterReducer
+} from './authReducers';
+
 
 export default combineReducers({
 	productDeleteReducer,
@@ -21,6 +27,10 @@ export default combineReducers({
     // sortProductReducer,
     
 
-    cartReducer
+    cartReducer,
+
+    userLoginReducer,
+    userUpdateReducer,
+    userRegisterReducer
 
 })

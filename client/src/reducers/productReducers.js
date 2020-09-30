@@ -21,7 +21,7 @@ function productGetAllReducer(state = { products: [] ,sortedProducts:[]}, action
 }
 
 function productGetByIdReducer(state = { product: {} }, action) {
-  console.log('productGetByIdReducer');
+  console.log('productGetByIdReducer',action);
   switch (action.type) {
     case 'PRODUCT_GETBYID_REQUEST':
       return { loading: true };
@@ -37,7 +37,6 @@ function productGetByIdReducer(state = { product: {} }, action) {
 //   let res = await productService.getAll();
 //   return res;
 // }
-// console.log(initialProductsState);
 
 
 function productCreateReducer(state = { product: {} }, action) {
@@ -87,15 +86,7 @@ function productDeleteReducer(state = { product: {} }, action) {
 // }
 
 // function sortProductReducer(state = { sortedProducts: [] }, action) {
-//   console.log('sortProductReducer',state.sortedProducts,action);
-//   switch (action.type) {
-//     case 'SORT_BY_PRICE':
-//       return {sortedProducts: action.payload};
-//     case 'SORT_BY_NAME':
-//       return {sortedProducts: action.payload};
-//     default: 
-//       return state;
-//   }
+
 // }
 
 export {

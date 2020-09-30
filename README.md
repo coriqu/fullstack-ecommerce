@@ -14,6 +14,8 @@ $ cd fullstack-ecommerce
 Download it from here: https://docs.mongodb.com/manual/administration/install-community/
 
 ```
+$ brew services start mongodb
+$ sudo mongod
 $ mongod
 # open new terminal
 $ mongo
@@ -34,3 +36,4 @@ $ cd client
 $ npm install
 $ npm run dev
 ```
+

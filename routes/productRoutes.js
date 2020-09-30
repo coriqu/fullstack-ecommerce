@@ -22,6 +22,7 @@ module.exports = (app) => {
 	    }
 	    res.status(404).send("Link Not Found - does not exists");
 	} catch (err) {
+      // console.log(err);
 	    res.status(500).send(err.message);
 	}
 

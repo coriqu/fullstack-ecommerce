@@ -10,10 +10,20 @@ export default {
 	  	let res = await axios.put(`/api/user/${id}`);
 	  	return res.data || [];
 	},
-	
-	create: async (user) => {
-	    let res = await axios.post(`/api/user`,user);
+
+	createadmin: async () => {
+	    let res = await axios.post(`/api/user/createadmin`);
 	    return res.data || [];
-	 },
+	},
+	register: async (user) => {
+	    let res = await axios.post(`/api/user/register`,user);
+	    return res.data || [];
+	},
+	login: async (email, password) => {
+		// console.log(email, password);
+	    let res = await axios.post(`/api/user/login`,{email, password});
+	    return res.data || [];
+	}
+
 
 }

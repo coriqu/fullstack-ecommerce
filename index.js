@@ -1,10 +1,12 @@
 // /index.js
 const express = require('express');
 const mongoose = require('mongoose');
+//this package will allow us to parse the json http request into our server and make sure
 const bodyParser = require('body-parser');
 
 // IMPORT MODELS
 const Product = require('./models/Product');
+const User = require('./models/User');
 
 const app = express();
 
@@ -39,9 +41,6 @@ const connect = mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost
 //         .catch((err) => {
 //             console.log(err);
 //         });
-
-
-
 // });
 
 
@@ -49,8 +48,18 @@ const connect = mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost
 
 app.use(bodyParser.json());
 
+
 //IMPORT ROUTES
 require('./routes/productRoutes')(app);
+require('./routes/userRoutes')(app);
+
+// const productRoutes = require('./routes/productRoutes');
+// const usersRouter = require('./routes/userRoutes');
+
+
+// app.use('/', productRoutes);
+// app.use('/user', usersRouter);
+
 
 
 //This will redirect all the requests to our frontend application, unless we specify any route before this code.
